@@ -1,0 +1,60 @@
+{
+    "manifest_version": 3,
+    "name": "Den",
+    "version": "1.0",
+    "description": "An extension to help you save money online with June the Fox.",
+    "permissions": ["storage", "activeTab", "scripting"],
+    "host_permissions": ["*://*/*"],
+    "action": {
+      "default_popup": "popup/popup.html",
+      "default_icon": {
+        "16": "media/icon16.png",
+        "48": "media/icon48.png",
+        "128": "media/icon128.png"
+      }
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["*://*/*"],
+        "js": ["src/shop/shop.js"],
+        "run_at": "document_idle"
+      }
+    ],
+    "web_accessible_resources": [
+      {
+        "resources": ["media/*"],
+        "matches": ["*://*/*"]
+      }
+    ],
+    "icons": {
+      "16": "media/icon16.png",
+      "48": "media/icon48.png",
+      "128": "media/icon128.png"
+    },
+    "pages": {
+      "home": {
+        "html": "src/home/home.html",
+        "js": "src/home/home.js",
+        "css": "src/home/home.css"
+      },
+      "popup": {
+        "html": "src/popup/popup.html",
+        "js": "popup/popup.js",
+        "css": "popup/popup.css"
+      },
+      "idle": {
+        "html": "idle/idle.html",
+        "js": "idle/idle.js",
+        "css": "idle/idle.css"
+      },
+      "shop": {
+        "html": "shop/shop.html",
+        "js": "shop/shop.js",
+        "css": "shop/shop.css"
+      }
+    }
+  }
+  
