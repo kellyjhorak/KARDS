@@ -7,7 +7,7 @@ body {
     height: 100vh;
     margin: 0;
     background-color: #FFFFC7;
-    font-family: "Rubik Spray Paint", cursive;
+    font-family: "Rubik Doodle Shadow";
 }
 
 /* Button container */
@@ -124,4 +124,18 @@ body {
     background-color: #B0413E;
     color: #FFFFC7;
     border-color: #B0413E;
+}
+
+.last-box {
+    border: none; /* Remove the border */
+    padding: 0;
+    background: none; /* Remove background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.last-box img {
+    width: 30px; /* Adjust size as needed */
+    height: 30px;
 }
