@@ -51,7 +51,7 @@ body {
 .streak-box {
     width: 80%;
     max-width: 600px;
-    height: 150px;
+    height: 80px;
     background-color: #FCAA67;
     color: white;
     font-size: 24px;
@@ -63,6 +63,18 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 30px; /* Space below the box */
+}
+
+.streak-image-container {
+    display: flex;
+    justify-content: center;
+}
+
+.streak-image-container img {
+    width: 150px; /* Adjust the size as needed */
+    height: auto;
+    border-radius: 10px; /* Optional: adds rounded corners */
+    margin-bottom: -9px; /* Negative margin to ensure it touches */
 }
 
 .streak-progress-container {
