@@ -1,0 +1,23 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Still centers other content, if any */
+    align-items: center; /* Still centers horizontally */
+    height: 100vh;
+    margin: 0;
+    background-image: url('../../media/Den_background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: "Rubik Doodle Shadow";
+    color: #473335;
+}
+
+img {
+    width: 25%; /* Adjust this percentage to make the fox smaller (e.g., 20% of parent width) */
+    height: auto; /* Maintains aspect ratio */
+    position: absolute; /* Takes it out of flex flow */
+    bottom: 8%; /* 15% padding from bottom */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Offset by half its width to truly center */
+}
