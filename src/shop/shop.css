@@ -1,4 +1,4 @@
-/* Reset default margins & padding */
+Reset default margins & padding
 * {
   margin: 0;
   padding: 0;
@@ -6,33 +6,36 @@
 }
 
 html, body {
-  width: 90%;
-  height: 100%;
-  position:absolute;
+  width: 100%;
+  height: 120%;
+  position: relative;
 }
+
 
 body {
   background: url("background.png") no-repeat center center;
   background-size: cover;
+
 }
 
+/* Position each image absolutely over the background */
 .item-glasses {
   position: absolute;
-  width: 400px; 
-  top: 60px;     
+  width: 300px;    
+  top: 80px;     
   left: 300px; 
 }
 
 .item-shirt {
   position: absolute;
-  width: 400px;  
-  bottom: 60px; 
-  left: 200px;     
+  width: 300px;    /* Adjust size to your preference */
+  bottom: 500px;     /* Adjust these positions to fine-tune placement */
+  left: 300px;     
 }
 
 .item-fox {
   position: absolute;
-  width: 400px;   
-  bottom: 5px;   
-  right: 65px;   
+  width: 520px;   
+  bottom: 250px;    
+  right: 200px;   
 }
