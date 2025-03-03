@@ -1,17 +1,27 @@
-// Toggle glasses on/off
-function toggleGlasses() {
-  const glassesEl = document.getElementById("foxGlasses");
-  glassesEl.classList.toggle("hidden");
-}
+document.addEventListener("DOMContentLoaded", function () {
+  function navigateTo(page) {
+      window.location.href = chrome.runtime.getURL(`src/${page}/${page}.html`);
+  }
 
-// Toggle shirt on/off
-function toggleShirt() {
-  const shirtEl = document.getElementById("foxShirt");
-  shirtEl.classList.toggle("hidden");
-}
+  document.getElementById("homeButton").addEventListener("click", function () {
+      navigateTo("home");
+  });
 
-// Reset fox to "undressed" state
-function resetFox() {
-  document.getElementById("foxGlasses").classList.add("hidden");
-  document.getElementById("foxShirt").classList.add("hidden");
-}
+  document.getElementById("denButton").addEventListener("click", function () {
+      navigateTo("den");
+  });
+
+  /* Shop Item toggle functionality, Might add later (there is pre-existing css for it too) - Aaron
+  document.getElementById("toggleGlasses").addEventListener("click", function () {
+      document.getElementById("foxGlasses").classList.toggle("hidden");
+  });
+
+  document.getElementById("toggleShirt").addEventListener("click", function () {
+      document.getElementById("foxShirt").classList.toggle("hidden");
+  });
+
+  document.getElementById("resetFox").addEventListener("click", function () {
+      document.getElementById("foxGlasses").classList.add("hidden");
+      document.getElementById("foxShirt").classList.add("hidden");
+  });*/
+});

@@ -1,23 +1,71 @@
 body {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Still centers other content, if any */
-    align-items: center; /* Still centers horizontally */
+    justify-content: flex-start; 
+    align-items: center;
     height: 100vh;
+    width: 320px; 
     margin: 0;
+    padding: 0;
     background-image: url('../../media/Den_background.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    font-family: "Rubik Doodle Shadow";
+    font-family: "Rubik Doodle Shadow", cursive;
     color: #473335;
+    overflow: hidden; 
 }
 
-img {
-    width: 25%; /* Adjust this percentage to make the fox smaller (e.g., 20% of parent width) */
-    height: auto; /* Maintains aspect ratio */
-    position: absolute; /* Takes it out of flex flow */
-    bottom: 8%; /* 15% padding from bottom */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Offset by half its width to truly center */
+/* Buttons */
+.button-container {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.button-container button, #backToPopup {
+    background-color: #548687;
+    color: #473335;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.button-container button:hover, #backToPopup:hover {
+    background-color: #B0413E;
+    transform: scale(1.05);
+}
+
+.button-container button:active, #backToPopup:active {
+    background-color: #b37800;
+    transform: scale(0.95);
+}
+
+/* For later */
+#backToPopup {
+    margin-top: 15px;
+    padding: 8px 14px;
+}
+
+/* Fox Image */
+.den-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+
+.den-image-container img {
+    width: 120px; 
+    max-width: 80%;
+    height: auto;
+    object-fit: contain; 
+    border-radius: 8px;
 }

@@ -1,193 +1,160 @@
-/* Center everything vertically */
-body {
-    display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+html, body {
+    width: 320px; 
+    height: 500px; 
     margin: 0;
+    padding: 0;
     background-color: #FFFFC7;
-    font-family: "Rubik Doodle Shadow";
+    font-family: "Rubik Doodle Shadow", cursive;
     color: #473335;
-}
-
-.coins-info {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.coin-icon {
-    width: 40px; /* Adjust the size as needed */
-    height: auto;
-}
-
-.coins-info p {
-    margin: 0; /* Remove default margin from paragraphs */
-}
-
-.streak-info {
-    position: absolute;
-    top: 40px; /* Adjust top value to position it below the coins info */
-    left: 10px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.streak-icon {
-    width: 40px; /* Adjust the size as needed */
-    height: auto;
-}
-
-.streak-info p {
-    margin: 0; /* Remove default margin from paragraphs */
-}
-
-/* Button container */
-.button-container {
-    position: absolute;
-    top: 10px;
-    right: 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Space between buttons */
+    align-items: center;
+    justify-content: flex-start; 
+    overflow: hidden;
 }
 
-/* Buttons */
+.button-container {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
 .button-container button {
-    background-color: #548687; /* Golden yellow */
+    background-color: #548687;
     color: #473335;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
+    padding: 8px 16px;
+    border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Hover effect */
 .button-container button:hover {
-    background-color: #B0413E; /* Darker yellow */
+    background-color: #B0413E;
     transform: scale(1.05);
 }
 
-/* Active effect (when clicked) */
 .button-container button:active {
     background-color: #b37800;
     transform: scale(0.95);
 }
 
-
-/* Streak message box */
-.streak-box {
-    width: 80%;
-    max-width: 600px;
-    height: 80px;
-    background-color: #FCAA67;
-    color: #473335;
-    font-size: 24px;
-    font-weight: bold;
-    display: flex; /* Enable flexbox for alignment */
-    align-items: center; /* Vertically center content */
-    gap: 10px; /* Space between the image and text */
-    padding-left: 10px; /* Add padding to avoid image touching the very edge */
-    text-align: left;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px; /* Space below the box */
+.coins-info, .streak-info {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
 }
 
-.streak-image {
-    width: 120px; /* Adjust size of the image */
+.coin-icon, .streak-icon {
+    width: 30px;
     height: auto;
-    margin-left: -65px;
-    margin-top: -22px;
 }
 
 .streak-image-container {
     display: flex;
     justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
 }
 
 .streak-image-container img {
-    width: 180px; /* Adjust the size as needed */
+    width: 120px; 
+    max-width: 80%; 
     height: auto;
-    border-radius: 10px; /* Optional: adds rounded corners */
-    margin-bottom: -9px; /* Negative margin to ensure it touches */
+    object-fit: contain; 
+    border-radius: 8px; 
+}
+
+
+/* Streak box */
+.streak-box {
+    width: 90%;
+    max-width: 280px;
+    height: 70px;
+    background-color: #FCAA67;
+    color: #473335;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    text-align: center;
+}
+
+.streak-image {
+    width: 40px;
+    height: auto;
 }
 
 .streak-progress-container {
-    position: relative;
+    width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 10px;
 }
 
-/* The connecting line */
-.streak-line {
-    position: absolute;
-    top: 50%;
-    width: 90%;
-    height: 5px;
-    background-color: #473335;
-    z-index: 0;
-}
-
-/* Streak progress tracker */
 .streak-progress {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    position: relative;
-    z-index: 1;
+    justify-content: center;
+    gap: 5px;
 }
 
 /* Day boxes */
 .day-box {
-    width: 30px;
-    height: 30px;
-    border: 3px solid #473335;
+    width: 25px;
+    height: 25px;
+    border: 2px solid #473335;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
+    font-size: 14px;
     font-weight: bold;
-    color: #333;
     background-color: white;
-    border-radius: 5px;
-    position: relative;
+    border-radius: 4px;
 }
 
-/* Checked boxes */
 .day-box.checked {
     background-color: #B0413E;
     color: #FFFFC7;
     border-color: #B0413E;
 }
 
-.last-box {
-    border: none; /* Remove the border */
-    padding: 0;
-    padding-left: 8px;
-    background: none; /* Remove background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .last-box img {
-    width: 60px; /* Adjust size as needed */
-    height: 60px;
+    width: 50px;
+    height: 50px;
 }
 
 .streak-reward-message {
-    font-size: 20px; /* Increase text size */
-    text-align: center; /* Center the text */
-    color: #473335; /* Use a standout color */
+    font-size: 14px;
+    text-align: center;
+    color: #473335;
+    margin-top: 10px;
+}
+
+/* Back to popup feature, might add later but idrk - Aaron*/
+#backToPopup {
+    margin-top: 15px;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #548687;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#backToPopup:hover {
+    background-color: #B0413E;
 }

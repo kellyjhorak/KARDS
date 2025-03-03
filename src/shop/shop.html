@@ -8,13 +8,25 @@
   <link rel="stylesheet" href="shop.css">
 </head>
 <body>
-  <!-- Glasses -->
-  <img src="glasses.png" alt="Glasses" class="item-glasses">
+  <div class="button-container">
+    <button id="homeButton">Home</button>
+    <button id="denButton">Den</button>
+    <!--<button id="backToPopup">Back to Popup</button>  Thinking about adding this later - Aaron-->
+  </div>
 
-  <!-- Shirt -->
-  <img src="shirt.png" alt="Shirt" class="item-shirt">
+  <div class="shop-items">
+    <img src="/media/Glasses_1.png" alt="Glasses" class="item-glasses" id="foxGlasses">
+    <img src="/media/Shirt_1.png" alt="Shirt" class="item-shirt" id="foxShirt">
+    <img src="/media/Fox_shirt_glasses.png" alt="Fox wearing glasses and shirt" class="item-fox">
+  </div>
 
-  <!-- Fox (dressed) -->
-  <img src="fox (dressed).png" alt="Fox wearing glasses and shirt" class="item-fox">
+  <!-- Shop control buttons, for later - Aaron
+  <div class="shop-controls">
+    <button id="toggleGlasses">Toggle Glasses</button>
+    <button id="toggleShirt">Toggle Shirt</button>
+    <button id="resetFox">Reset Outfit</button>
+  </div>-->
+
+  <script src="shop.js"></script>
 </body>
 </html>
