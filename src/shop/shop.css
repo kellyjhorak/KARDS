@@ -8,7 +8,8 @@ html, body {
   width: 565px; 
   height: 410px; 
   position: relative;
-  font-family: "Rubik Doodle Shadow", cursive;
+  font-family: "winco", sans-serif;
+  font-weight: 800;
   color: #473335;
   display: flex;
   flex-direction: column;
@@ -35,7 +36,8 @@ body {
   background-color: #548687;
   color: #473335;
   font-size: 14px;
-  font-weight: bold;
+  font-family: "winco", sans-serif;
+  font-weight: 800;
   border: none;
   padding: 8px 16px;
   border-radius: 6px;
