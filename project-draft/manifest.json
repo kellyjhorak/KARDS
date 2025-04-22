@@ -1,0 +1,52 @@
+{
+    "manifest_version": 3,
+    "name": "Den",
+    "version": "1.1",
+    "description": "An extension to help you save money online with June the Fox.",
+    "permissions": ["storage", "activeTab", "scripting"],
+    "host_permissions": ["*://*/*"],
+    "action": {
+      "default_popup": "src/popup/popup.html",
+      "default_icon": {
+        "16": "media/icon16.png",
+        "48": "media/icon48.png",
+        "128": "media/icon128.png"
+      }
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["*://*/*"],
+        "js": ["src/shop/shop.js"],
+        "run_at": "document_idle"
+      }
+    ],
+    "web_accessible_resources": [
+      {
+        "resources": [
+        "media/*",
+        "src/home/home.html",
+        "src/home/home.js",
+        "src/home/home.css",
+        "src/popup/popup.html",
+        "src/popup/popup.js",
+        "src/popup/popup.css",
+        "den/den.html",
+        "den/den.js",
+        "den/den.css",
+        "shop/shop.html",
+        "shop/shop.js",
+        "shop/shop.css"
+        ],
+        "matches": ["<all_urls>"]
+      }
+    ],
+    "icons": {
+      "16": "media/icon16.png",
+      "48": "media/icon48.png",
+      "128": "media/icon128.png"
+    }
+  }
+  
