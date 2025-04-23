@@ -6,7 +6,7 @@
     "permissions": ["storage", "activeTab", "scripting"],
     "host_permissions": ["*://*/*"],
     "action": {
-      "default_popup": "src/popup/popup.html",
+      "default_popup": "popup.html",
       "default_icon": {
         "16": "media/icon16.png",
         "48": "media/icon48.png",
@@ -16,29 +16,14 @@
     "background": {
       "service_worker": "background.js"
     },
-    "content_scripts": [
-      {
-        "matches": ["*://*/*"],
-        "js": ["src/shop/shop.js"],
-        "run_at": "document_idle"
-      }
-    ],
     "web_accessible_resources": [
       {
         "resources": [
         "media/*",
-        "src/home/home.html",
-        "src/home/home.js",
-        "src/home/home.css",
-        "src/popup/popup.html",
-        "src/popup/popup.js",
-        "src/popup/popup.css",
-        "den/den.html",
-        "den/den.js",
-        "den/den.css",
-        "shop/shop.html",
-        "shop/shop.js",
-        "shop/shop.css"
+        "src/components/Den.jsx",
+        "src/components/Home.ksx",
+        "src/components/Popup.jsx",
+        "src/components/Shop.jsx"
         ],
         "matches": ["<all_urls>"]
       }
