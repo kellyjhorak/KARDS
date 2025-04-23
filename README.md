@@ -13,7 +13,7 @@ _Sophia Mangrubang_ - UX Designer
 
 _Kelly Mansour_ - UX Researcher
 
-## Built With
+# Built With
 This section includes the major frameworks/languages/technologies we utilized for this project
 - React
 - Vite
@@ -25,7 +25,7 @@ This section includes the major frameworks/languages/technologies we utilized fo
 ### Getting Started
 Our repository includes two major sections, the KARDS repository (which includes all of the current files of our project) and the project-draft folder (which includes the HTML/CSS draft of our project). To get a local copy up and running on your machine, follow these instructions.
 
-## Prereqs
+# Prereqs
 First, clone the repo
 ```
 git clone https://github.com/kellyjhorak/KARDS.git
@@ -34,7 +34,7 @@ Next, make sure that you have Node.js installed on your device, then install NPM
 ```
 npm install npm@latest -g
 ```
-## Installation steps
+# Installation steps
 1. After npm installs, run the build in your IDE terminal (under the main repository "KARDS")
 ```
 npm run build
