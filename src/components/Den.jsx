@@ -11,7 +11,7 @@ const Den = () => {
       flexDirection: "column",
       justifyContent: "flex-start",
       alignItems: "center",
-      height: "100vh",
+      height: "235px",
       width: "320px",
       margin: 0,
       padding: 0,
