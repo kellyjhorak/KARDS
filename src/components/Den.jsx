@@ -58,7 +58,7 @@ const Den = () => {
   };
 
   const handleNav = (page) => {
-    navigate('/home'); 
+    navigate(`/${page}`); 
   };
 
   return (

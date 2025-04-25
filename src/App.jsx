@@ -8,10 +8,10 @@ import Popup from './components/Popup';
 function App() {
   return (
       <Routes>
-        <Route path="/" element={<Den />} />
+        <Route path="/" element={<Popup />} />
         <Route path="/home" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
-        <Route path="/popup" element={<Popup />} />
+        <Route path="/den" element={<Den />} />
       </Routes>
   );
 }
