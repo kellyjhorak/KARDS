@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import coinIcon from "../../media/Coin_single.png";
 import streakIcon from "../../media/Streak.png";
@@ -7,6 +7,15 @@ import doubleCoinImg from "../../media/Double_coin.png";
 
 const Home = () => {
   const navigate = useNavigate();
+  const [streak, setStreak] = useState(0);
+
+  useEffect(() => {
+    chrome.runtime.sendMessage({ type: "GET_STREAK_DATA" }, (response) => {
+      if (response && response.streak !== undefined) {
+        setStreak(response.streak);
+      }
+    });
+  }, []);
 
   const styles = {
     page: {
@@ -176,16 +185,10 @@ const Home = () => {
   return (
     <div style={styles.page}>
       <div style={styles.buttonContainer}>
-        <button
-          style={styles.button}
-          onClick={() => navigate("/den")}
-        >
+        <button style={styles.button} onClick={() => navigate("/den")}>
           DEN
         </button>
-        <button
-          style={styles.button}
-          onClick={() => navigate("/shop")}
-        >
+        <button style={styles.button} onClick={() => navigate("/shop")}>
           SHOP
         </button>
       </div>
@@ -197,7 +200,7 @@ const Home = () => {
         </div>
         <div style={styles.countBlock}>
           <img src={streakIcon} alt="Streak" style={styles.icon} />
-          <span>4 days</span>
+          <span>{streak} days</span>
         </div>
       </div>
 
@@ -207,18 +210,23 @@ const Home = () => {
 
       <div style={styles.streakBox}>
         <img src={streakIcon} alt="Streak icon" style={styles.streakIcon} />
-        <p style={{ margin: 0 }}>3 days without an impulse purchase!</p>
+        <p style={{ margin: 0 }}>{streak} days without an impulse purchase!</p>
       </div>
 
       <div style={styles.streakProgressContainer}>
         <div style={styles.streakLine}></div>
         <div style={styles.streakProgress}>
-          {[...Array(3)].map((_, i) => (
-            <div key={i} style={{ ...styles.dayBox, ...styles.dayBoxChecked }}>✔</div>
-          ))}
-          {[...Array(7)].map((_, i) => (
-            <div key={i} style={styles.dayBox}></div>
-          ))}
+          {[...Array(10)].map((_, i) => {
+            const isChecked = i < streak;
+            return (
+              <div
+                key={i}
+                style={isChecked ? { ...styles.dayBox, ...styles.dayBoxChecked } : styles.dayBox}
+              >
+                {isChecked ? "✔" : ""}
+              </div>
+            );
+          })}
           <div style={styles.lastBox}>
             <img src={doubleCoinImg} alt="Double coin" style={styles.lastBoxImg} />
           </div>
