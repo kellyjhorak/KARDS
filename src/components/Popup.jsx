@@ -65,7 +65,6 @@ const Popup = () => {
     },
   };
 
-  // Navigation logic
   const handleNav = (page) => {
     navigate(`/${page}`);
   };
@@ -83,15 +82,15 @@ const Popup = () => {
         <div style={styles.buttonGroup}>
           <button
             style={styles.button}
-            onClick={() => handleNav("home")}
+            onClick={() => handleNav("signin")}
             onMouseOver={(e) => (e.target.style.backgroundColor = "#B0413E")}
             onMouseOut={(e) => (e.target.style.backgroundColor = "#548687")}
             onMouseDown={(e) => (e.target.style.backgroundColor = "#b37800")}
             onMouseUp={(e) => (e.target.style.backgroundColor = "#B0413E")}
           >
-            Go to Home
+            Visit your Den
           </button>
-
+          {/* old. disregard
           <button
             style={styles.button}
             onClick={() => handleNav("den")}
@@ -112,7 +111,7 @@ const Popup = () => {
             onMouseUp={(e) => (e.target.style.backgroundColor = "#B0413E")}
           >
             Go to Shop
-          </button>
+          </button>*/}
         </div>
       </div>
     </div>

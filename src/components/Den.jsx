@@ -1,9 +1,10 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import Nav from "./Nav";
+/*import { useNavigate } from "react-router-dom";*/
 import foxImg from "../../media/Fox_og.png";
 
 const Den = () => {
-  const navigate = useNavigate();
+  /*const navigate = useNavigate();*/
 
   const styles = {
     body: {
@@ -11,8 +12,8 @@ const Den = () => {
       flexDirection: "column",
       justifyContent: "flex-start",
       alignItems: "center",
-      height: "235px",
-      width: "320px",
+      width: "640px",
+      height: "464px",
       margin: 0,
       padding: 0,
       backgroundImage: `url('../../media/Den_background.png')`,
@@ -46,23 +47,26 @@ const Den = () => {
       justifyContent: "center",
       alignItems: "center",
       width: "100%",
-      marginTop: "20px",
+      marginTop: "80px",
     },
     image: {
-      width: "120px",
+      width: "240px",
       maxWidth: "80%",
       height: "auto",
       objectFit: "contain",
-      borderRadius: "8px",
+      borderRadius: "16px",
     },
   };
 
+  /* old disregard
   const handleNav = (page) => {
     navigate(`/${page}`); 
-  };
+  };*/
 
   return (
     <div style={styles.body}>
+      <Nav />
+      {/* old navigation
       <div style={styles.buttonContainer}>
         <button
           style={styles.button}
@@ -84,7 +88,7 @@ const Den = () => {
         >
           SHOP
         </button>
-      </div>
+      </div>*/}
       <div style={styles.imageContainer}>
         <img src={foxImg} alt="June the Fox" style={styles.image} />
       </div>

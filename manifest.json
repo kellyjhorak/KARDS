@@ -4,7 +4,10 @@
     "version": "1.1",
     "description": "An extension to help you save money online with June the Fox.",
     "permissions": ["storage", "activeTab", "scripting"],
-    "host_permissions": ["*://*/*"],
+    "host_permissions": ["https://*.firebaseio.com/", "https://*.googleapis.com/"],
+    "content_security_policy": {
+      "extension_pages": "script-src 'self'; object-src 'self';"
+    },
     "action": {
       "default_popup": "popup.html",
       "default_icon": {
@@ -21,9 +24,10 @@
         "resources": [
         "media/*",
         "src/components/Den.jsx",
-        "src/components/Home.ksx",
+        "src/components/Home.jsx",
         "src/components/Popup.jsx",
-        "src/components/Shop.jsx"
+        "src/components/Shop.jsx",
+        "src/components/Signin.jsx"
         ],
         "matches": ["<all_urls>"]
       }
