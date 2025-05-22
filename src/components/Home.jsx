@@ -96,7 +96,7 @@ const Home = () => {
       position: "relative",
       width: "300px",
       height: "300px",
-      marginTop: "4px",
+      marginTop: "18px",
     },
     foxBase: {
       position: "absolute",

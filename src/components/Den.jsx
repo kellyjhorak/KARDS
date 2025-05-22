@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
 import foxImg from "../../media/June.png";
 
+// backgrounds
+import DenBackground from "../../media/Den_background.png";
+import FireBackground from "../../media/Fire.png";
+
 // tops
 import Black_peace_shirt from "../../media/Black_peace_shirt.png";
 import Camo_shirt from "../../media/Camo_shirt.png";
@@ -19,6 +23,8 @@ import Purple_skirt from "../../media/Purple_skirt.png";
 const Den = () => {
   const [selectedTop, setSelectedTop] = useState(null);
   const [selectedBottom, setSelectedBottom] = useState(null);
+  const [fireOn, setFireOn] = useState(false);
+  const [showGlow, setShowGlow] = useState(true);
 
   const tops = [
     Black_peace_shirt,
@@ -41,6 +47,9 @@ const Den = () => {
       if (result.selectedTop !== undefined) setSelectedTop(result.selectedTop);
       if (result.selectedBottom !== undefined) setSelectedBottom(result.selectedBottom);
     });
+
+    const timer = setTimeout(() => setShowGlow(false), 5000);
+    return () => clearTimeout(timer);
   }, []);
 
   const styles = {
@@ -50,7 +59,7 @@ const Den = () => {
       height: "464px",
       margin: 0,
       padding: 0,
-      backgroundImage: `url('../../media/Den_background.png')`,
+      backgroundImage: `url(${fireOn ? FireBackground : DenBackground})`,
       backgroundSize: "cover",
       backgroundPosition: "center",
       backgroundRepeat: "no-repeat",
@@ -63,7 +72,7 @@ const Den = () => {
       width: "300px",
       top: "220px",
       left: "320px",
-      transform: "translate(-50%, 0)", // center horizontally on left:320px
+      transform: "translate(-50%, 0)",
       userSelect: "none",
       pointerEvents: "none",
     },
@@ -76,12 +85,51 @@ const Den = () => {
       pointerEvents: "none",
       userSelect: "none",
     },
+    fireplaceHotspot: {
+      position: "absolute",
+      top: "300px",
+      left: "410px",
+      width: "120px",
+      height: "100px",
+      cursor: "pointer",
+      zIndex: 10,
+    },
+    glowAura: {
+      position: "absolute",
+      top: "335px",
+      left: "460px",
+      width: "20px",
+      height: "20px",
+      borderRadius: "50%",
+      backgroundColor: "rgba(255, 255, 255, 0.3)",
+      boxShadow: "0 0 5px 2px rgba(255, 255, 255, 0.6)",
+      animation: "innerGlow 1.5s ease-in-out infinite",
+      zIndex: 9,
+      pointerEvents: "none",
+    },
   };
 
   return (
     <div style={styles.body}>
+      <style>
+        {`@keyframes innerGlow {
+          0% { box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.3); }
+          50% { box-shadow: 0 0 12px 4px rgba(255, 255, 255, 0.7); }
+          100% { box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.3); }
+        }`}
+      </style>
+
       <Nav />
+
+      {showGlow && !fireOn && <div style={styles.glowAura} />}
+
+      <div
+        style={styles.fireplaceHotspot}
+        onClick={() => setFireOn((prev) => !prev)}
+      />
+
       <img src={foxImg} alt="June the Fox" style={styles.fox} />
+
       {selectedTop !== null && (
         <img src={tops[selectedTop]} alt="Top" style={styles.equippedItem} />
       )}
