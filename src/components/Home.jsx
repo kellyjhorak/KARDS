@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { getUserData } from "../firestoreService";
+import { auth } from "../firebase";
 import Nav from "./Nav";
 import coinIcon from "../../media/Coin_single.png";
 import streakIcon from "../../media/Streak.png";
@@ -40,12 +42,23 @@ const Home = () => {
     Purple_skirt,
   ];
 
+  const [coins, setCoins] = useState(0);
+
+  // getting user streak
   useEffect(() => {
     chrome.runtime.sendMessage({ type: "GET_STREAK_DATA" }, (response) => {
       if (response && response.streak !== undefined) {
         setStreak(response.streak);
       }
     });
+
+    // getting user coinz
+    const user = auth.currentUser;
+      if (user) {
+        getUserData(user.uid).then((data) => {
+          if (data) setCoins(data.coins || 0);
+        });
+      }
 
     chrome.storage.local.get(["selectedTop", "selectedBottom"], (result) => {
       if (result.selectedTop !== undefined) setSelectedTop(result.selectedTop);
@@ -207,7 +220,7 @@ const Home = () => {
       <div style={styles.topLeftInfo}>
         <div style={styles.countBlock}>
           <img src={coinIcon} alt="Coin" style={styles.icon} />
-          <span>123</span>
+          <span>{coins}</span>
         </div>
         <div style={styles.countBlock}>
           <img src={streakIcon} alt="Streak" style={styles.icon} />
@@ -215,7 +228,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Layered fox like Den */}
       <div style={styles.foxContainer}>
         <img src={foxImg} alt="June the Fox" style={styles.foxBase} />
         {selectedTop !== null && (
@@ -252,7 +264,7 @@ const Home = () => {
       </div>
 
       <div style={styles.rewardMsg}>
-        Get to a 10-day streak to earn a 2x coin multiplier!
+        Get to a 10-day streak to earn special clothes in the shop!
       </div>
     </div>
   );
