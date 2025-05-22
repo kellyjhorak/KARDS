@@ -1,23 +1,25 @@
 import React, { useState } from "react";
 import Nav from "./Nav";
 
-import foxImg from "../../media/Fox_og.png";
+import foxImg from "../../media/June.png";
 import background from "../../media/Shop_background.png";
 
 // Itemzzzzz
-import Black_glasses from "../../media/Black_glasses.png";
-import Green_hat from "../../media/Green_hat.png";
-import Headphones from "../../media/Headphones.png";
-import Monocle from "../../media/Monocle.png";
-import Red_glasses from "../../media/Red_glasses.png";
-import Top_hat from "../../media/Top_hat.png";
+// import Black_glasses from "../../media/Black_glasses.png";
+// import Green_hat from "../../media/Green_hat.png";
+// import Headphones from "../../media/Headphones.png";
+// import Monocle from "../../media/Monocle.png";
+// import Red_glasses from "../../media/Red_glasses.png";
+// import Top_hat from "../../media/Top_hat.png";
 
+// tops
 import Black_peace_shirt from "../../media/Black_peace_shirt.png";
 import Camo_shirt from "../../media/Camo_shirt.png";
 import Dad_shirt from "../../media/Dad_shirt.png";
 import Luv_den_shirt from "../../media/Luv_den_shirt.png";
 import NYC_shirt from "../../media/NYC_shirt.png";
 
+// bottoms
 import Cargos_shorts from "../../media/Cargos_shorts.png";
 import Gym_shorts from "../../media/Gym_shorts.png";
 import Jorts_shorts from "../../media/Jorts_shorts.png";
@@ -25,7 +27,7 @@ import Orange_skirt from "../../media/Orange_skirt.png";
 import Purple_skirt from "../../media/Purple_skirt.png";
 
 const Shop = () => {
-  const [selectedCategory, setSelectedCategory] = useState("accessories");
+  const [selectedCategory, setSelectedCategory] = useState("tops");
   const [selectedItem, setSelectedItem] = useState(null);
 
   const styles = {
@@ -91,9 +93,9 @@ const Shop = () => {
     },
     fox: {
       position: "absolute",
-      width: "170px",
-      top: "190px",
-      left: "390px",
+      width: "300px", 
+      top: "210px",  
+      left: "325px", 
     },
     equippedItem: {
       position: "absolute",
@@ -103,16 +105,14 @@ const Shop = () => {
   };
 
   const categories = {
-    accessories: [Black_glasses, Green_hat, Headphones, Monocle, Red_glasses, Top_hat],
     tops: [Black_peace_shirt, Camo_shirt, Dad_shirt, Luv_den_shirt, NYC_shirt],
     bottoms: [Cargos_shorts, Gym_shorts, Jorts_shorts, Orange_skirt, Purple_skirt],
   };
 
   // this wont work. idk why. the items are way too small and wont fit on june, someone fix plz
   const equippedItemStyle = {
-    accessories: { top: "180px", left: "420px", width: "60px" },
-    tops: { top: "250px", left: "390px", width: "100px" },
-    bottoms: { top: "320px", left: "395px", width: "90px" },
+    tops: { top: "210px", left: "325px", width: "300px" },
+    bottoms: { top: "210px", left: "325px", width: "300px" },
   };
 
   const equippedItem =
