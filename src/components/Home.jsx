@@ -3,7 +3,7 @@ import Nav from "./Nav";
 import coinIcon from "../../media/Coin_single.png";
 import streakIcon from "../../media/Streak.png";
 import doubleCoinImg from "../../media/Double_coin.png";
-import foxImg from "../../media/June.png";
+import foxImg from "../../media/June_happy.png";
 
 // tops
 import Black_peace_shirt from "../../media/Black_peace_shirt.png";
