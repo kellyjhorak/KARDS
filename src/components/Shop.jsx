@@ -4,14 +4,6 @@ import Nav from "./Nav";
 import foxImg from "../../media/June.png";
 import background from "../../media/Shop_background.png";
 
-// Itemzzzzz
-// import Black_glasses from "../../media/Black_glasses.png";
-// import Green_hat from "../../media/Green_hat.png";
-// import Headphones from "../../media/Headphones.png";
-// import Monocle from "../../media/Monocle.png";
-// import Red_glasses from "../../media/Red_glasses.png";
-// import Top_hat from "../../media/Top_hat.png";
-
 // tops
 import Black_peace_shirt from "../../media/Black_peace_shirt.png";
 import Camo_shirt from "../../media/Camo_shirt.png";
@@ -28,7 +20,8 @@ import Purple_skirt from "../../media/Purple_skirt.png";
 
 const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState("tops");
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedTop, setSelectedTop] = useState(null);
+  const [selectedBottom, setSelectedBottom] = useState(null);
 
   const styles = {
     page: {
@@ -109,14 +102,18 @@ const Shop = () => {
     bottoms: [Cargos_shorts, Gym_shorts, Jorts_shorts, Orange_skirt, Purple_skirt],
   };
 
-  // this wont work. idk why. the items are way too small and wont fit on june, someone fix plz
   const equippedItemStyle = {
     tops: { top: "210px", left: "325px", width: "300px" },
     bottoms: { top: "210px", left: "325px", width: "300px" },
   };
 
-  const equippedItem =
-    selectedItem !== null ? categories[selectedCategory][selectedItem] : null;
+  const handleItemClick = (index) => {
+    if (selectedCategory === "tops") {
+      setSelectedTop(index);
+    } else if (selectedCategory === "bottoms") {
+      setSelectedBottom(index);
+    }
+  };
 
   return (
     <div style={styles.page}>
@@ -126,11 +123,11 @@ const Shop = () => {
         {Object.keys(categories).map((cat) => (
           <button
             key={cat}
-            style={{ ...styles.tab, backgroundColor: selectedCategory === cat ? "#B0413E" : "#548687" }}
-            onClick={() => {
-              setSelectedCategory(cat);
-              setSelectedItem(null);
+            style={{
+              ...styles.tab,
+              backgroundColor: selectedCategory === cat ? "#B0413E" : "#548687",
             }}
+            onClick={() => setSelectedCategory(cat)}
           >
             {cat.toUpperCase()}
           </button>
@@ -144,7 +141,7 @@ const Shop = () => {
             src={item}
             alt={`Item ${index}`}
             style={styles.itemImg}
-            onClick={() => setSelectedItem(index)}
+            onClick={() => handleItemClick(index)}
             onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
             onMouseOut={(e) => (e.target.style.transform = "scale(1.0)")}
           />
@@ -153,14 +150,19 @@ const Shop = () => {
 
       <img src={foxImg} alt="Fox" style={styles.fox} />
 
-      {equippedItem && (
+      {selectedTop !== null && (
         <img
-          src={equippedItem}
-          alt="Equipped"
-          style={{
-            ...styles.equippedItem,
-            ...equippedItemStyle[selectedCategory],
-          }}
+          src={categories.tops[selectedTop]}
+          alt="Equipped Top"
+          style={{ ...styles.equippedItem, ...equippedItemStyle.tops }}
+        />
+      )}
+
+      {selectedBottom !== null && (
+        <img
+          src={categories.bottoms[selectedBottom]}
+          alt="Equipped Bottom"
+          style={{ ...styles.equippedItem, ...equippedItemStyle.bottoms }}
         />
       )}
     </div>
