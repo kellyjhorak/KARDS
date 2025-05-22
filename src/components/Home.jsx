@@ -1,21 +1,55 @@
 import React, { useEffect, useState } from "react";
-import Nav from "./Nav";/*
-import { useNavigate } from "react-router-dom";*/
+import Nav from "./Nav";
 import coinIcon from "../../media/Coin_single.png";
 import streakIcon from "../../media/Streak.png";
-import foxCongratsImg from "../../media/Fox_congrats.png";
 import doubleCoinImg from "../../media/Double_coin.png";
+import foxImg from "../../media/June.png";
+
+// tops
+import Black_peace_shirt from "../../media/Black_peace_shirt.png";
+import Camo_shirt from "../../media/Camo_shirt.png";
+import Dad_shirt from "../../media/Dad_shirt.png";
+import Luv_den_shirt from "../../media/Luv_den_shirt.png";
+import NYC_shirt from "../../media/NYC_shirt.png";
+
+// bottoms
+import Cargos_shorts from "../../media/Cargos_shorts.png";
+import Gym_shorts from "../../media/Gym_shorts.png";
+import Jorts_shorts from "../../media/Jorts_shorts.png";
+import Orange_skirt from "../../media/Orange_skirt.png";
+import Purple_skirt from "../../media/Purple_skirt.png";
 
 const Home = () => {
-  /* old
-  const navigate = useNavigate();*/
   const [streak, setStreak] = useState(0);
+  const [selectedTop, setSelectedTop] = useState(null);
+  const [selectedBottom, setSelectedBottom] = useState(null);
+
+  const tops = [
+    Black_peace_shirt,
+    Camo_shirt,
+    Dad_shirt,
+    Luv_den_shirt,
+    NYC_shirt,
+  ];
+
+  const bottoms = [
+    Cargos_shorts,
+    Gym_shorts,
+    Jorts_shorts,
+    Orange_skirt,
+    Purple_skirt,
+  ];
 
   useEffect(() => {
     chrome.runtime.sendMessage({ type: "GET_STREAK_DATA" }, (response) => {
       if (response && response.streak !== undefined) {
         setStreak(response.streak);
       }
+    });
+
+    chrome.storage.local.get(["selectedTop", "selectedBottom"], (result) => {
+      if (result.selectedTop !== undefined) setSelectedTop(result.selectedTop);
+      if (result.selectedBottom !== undefined) setSelectedBottom(result.selectedBottom);
     });
   }, []);
 
@@ -58,38 +92,19 @@ const Home = () => {
       width: "32px",
       height: "auto",
     },
-    buttonContainer: {
+    foxContainer: {
+      position: "relative",
+      width: "300px",
+      height: "300px",
       marginTop: "4px",
-      display: "flex",
-      gap: "4px",
-      paddingBottom: "10px",
     },
-    button: {
-      backgroundColor: "#548687",
-      color: "#473335",
-      fontSize: "20px",
-      fontFamily: "'winco', sans-serif",
-      fontWeight: 800,
-      border: "none",
-      padding: "8px 12px",
-      borderRadius: "8px",
-      cursor: "pointer",
-      transition: "background-color 0.3s, transform 0.2s",
-      boxShadow: "1px 1px 2px rgba(0, 0, 0, 0.2)",
-    },
-    streakImageContainer: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
+    foxBase: {
+      position: "absolute",
       width: "100%",
-      marginTop: "4px",
-    },
-    streakImg: {
-      width: "140px",
-      maxWidth: "80%",
-      height: "auto",
-      objectFit: "contain",
-      borderRadius: "8px",
+      top: 0,
+      left: 0,
+      userSelect: "none",
+      pointerEvents: "none",
     },
     streakBox: {
       width: "80%",
@@ -188,15 +203,6 @@ const Home = () => {
   return (
     <div style={styles.page}>
       <Nav />
-      {/* old nav functionality }
-      <div style={styles.buttonContainer}>
-        <button style={styles.button} onClick={() => navigate("/den")}>
-          DEN
-        </button>
-        <button style={styles.button} onClick={() => navigate("/shop")}>
-          SHOP
-        </button>
-      </div>*/}
 
       <div style={styles.topLeftInfo}>
         <div style={styles.countBlock}>
@@ -209,8 +215,15 @@ const Home = () => {
         </div>
       </div>
 
-      <div style={styles.streakImageContainer}>
-        <img src={foxCongratsImg} alt="Happy fox" style={styles.streakImg} />
+      {/* Layered fox like Den */}
+      <div style={styles.foxContainer}>
+        <img src={foxImg} alt="June the Fox" style={styles.foxBase} />
+        {selectedTop !== null && (
+          <img src={tops[selectedTop]} alt="Top" style={styles.foxBase} />
+        )}
+        {selectedBottom !== null && (
+          <img src={bottoms[selectedBottom]} alt="Bottom" style={styles.foxBase} />
+        )}
       </div>
 
       <div style={styles.streakBox}>

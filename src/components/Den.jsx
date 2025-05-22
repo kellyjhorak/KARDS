@@ -1,17 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
-/*import { useNavigate } from "react-router-dom";*/
-import foxImg from "../../media/Fox_og.png";
+import foxImg from "../../media/June.png";
+
+// tops
+import Black_peace_shirt from "../../media/Black_peace_shirt.png";
+import Camo_shirt from "../../media/Camo_shirt.png";
+import Dad_shirt from "../../media/Dad_shirt.png";
+import Luv_den_shirt from "../../media/Luv_den_shirt.png";
+import NYC_shirt from "../../media/NYC_shirt.png";
+
+// bottoms
+import Cargos_shorts from "../../media/Cargos_shorts.png";
+import Gym_shorts from "../../media/Gym_shorts.png";
+import Jorts_shorts from "../../media/Jorts_shorts.png";
+import Orange_skirt from "../../media/Orange_skirt.png";
+import Purple_skirt from "../../media/Purple_skirt.png";
 
 const Den = () => {
-  /*const navigate = useNavigate();*/
+  const [selectedTop, setSelectedTop] = useState(null);
+  const [selectedBottom, setSelectedBottom] = useState(null);
+
+  const tops = [
+    Black_peace_shirt,
+    Camo_shirt,
+    Dad_shirt,
+    Luv_den_shirt,
+    NYC_shirt,
+  ];
+
+  const bottoms = [
+    Cargos_shorts,
+    Gym_shorts,
+    Jorts_shorts,
+    Orange_skirt,
+    Purple_skirt,
+  ];
+
+  useEffect(() => {
+    chrome.storage.local.get(["selectedTop", "selectedBottom"], (result) => {
+      if (result.selectedTop !== undefined) setSelectedTop(result.selectedTop);
+      if (result.selectedBottom !== undefined) setSelectedBottom(result.selectedBottom);
+    });
+  }, []);
 
   const styles = {
     body: {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "flex-start",
-      alignItems: "center",
+      position: "relative",
       width: "640px",
       height: "464px",
       margin: 0,
@@ -24,74 +58,36 @@ const Den = () => {
       color: "#473335",
       overflow: "hidden",
     },
-    buttonContainer: {
-      marginTop: "20px",
-      display: "flex",
-      gap: "10px",
+    fox: {
+      position: "absolute",
+      width: "300px",
+      top: "220px",
+      left: "320px",
+      transform: "translate(-50%, 0)", // center horizontally on left:320px
+      userSelect: "none",
+      pointerEvents: "none",
     },
-    button: {
-      backgroundColor: "#548687",
-      color: "#473335",
-      fontSize: "14px",
-      fontFamily: "'winco', sans-serif",
-      fontWeight: 800,
-      border: "none",
-      padding: "8px 16px",
-      borderRadius: "6px",
-      cursor: "pointer",
-      transition: "background-color 0.3s, transform 0.2s",
-      boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.2)",
-    },
-    imageContainer: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      width: "100%",
-      marginTop: "80px",
-    },
-    image: {
-      width: "240px",
-      maxWidth: "80%",
-      height: "auto",
-      objectFit: "contain",
-      borderRadius: "16px",
+    equippedItem: {
+      position: "absolute",
+      top: "220px",
+      left: "320px",
+      width: "300px",
+      transform: "translate(-50%, 0)",
+      pointerEvents: "none",
+      userSelect: "none",
     },
   };
-
-  /* old disregard
-  const handleNav = (page) => {
-    navigate(`/${page}`); 
-  };*/
 
   return (
     <div style={styles.body}>
       <Nav />
-      {/* old navigation
-      <div style={styles.buttonContainer}>
-        <button
-          style={styles.button}
-          onClick={() => handleNav("home")}
-          onMouseOver={(e) => (e.target.style.backgroundColor = "#B0413E")}
-          onMouseOut={(e) => (e.target.style.backgroundColor = "#548687")}
-          onMouseDown={(e) => (e.target.style.backgroundColor = "#b37800")}
-          onMouseUp={(e) => (e.target.style.backgroundColor = "#B0413E")}
-        >
-          HOME
-        </button>
-        <button
-          style={styles.button}
-          onClick={() => handleNav("shop")}
-          onMouseOver={(e) => (e.target.style.backgroundColor = "#B0413E")}
-          onMouseOut={(e) => (e.target.style.backgroundColor = "#548687")}
-          onMouseDown={(e) => (e.target.style.backgroundColor = "#b37800")}
-          onMouseUp={(e) => (e.target.style.backgroundColor = "#B0413E")}
-        >
-          SHOP
-        </button>
-      </div>*/}
-      <div style={styles.imageContainer}>
-        <img src={foxImg} alt="June the Fox" style={styles.image} />
-      </div>
+      <img src={foxImg} alt="June the Fox" style={styles.fox} />
+      {selectedTop !== null && (
+        <img src={tops[selectedTop]} alt="Top" style={styles.equippedItem} />
+      )}
+      {selectedBottom !== null && (
+        <img src={bottoms[selectedBottom]} alt="Bottom" style={styles.equippedItem} />
+      )}
     </div>
   );
 };

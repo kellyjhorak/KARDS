@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
 
 import foxImg from "../../media/June.png";
@@ -53,27 +53,29 @@ const Shop = () => {
       zIndex: 2,
     },
     tab: {
-      padding: "3px 6px",
+      padding: "8px 14px",     
       backgroundColor: "#548687",
       color: "#FFFFC7",
-      borderRadius: "4px",
+      borderRadius: "6px",    
       cursor: "pointer",
-      fontSize: "10px",
+      fontSize: "16px",       
       fontWeight: "bold",
       border: "none",
+      minWidth: "80px",         
+      textAlign: "center",
     },
     itemBanner: {
       position: "absolute",
       top: "100px",
       left: "35px",
-      width: "260px",
+      width: "300px",           
       height: "300px",
       overflowY: "auto",
-      overflowX: "hidden",
       display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      gap: "2px",
+      flexDirection: "row",
+      flexWrap: "wrap",    
+      justifyContent: "center",
+      gap: "4px",
       padding: "2px",
       backgroundColor: "rgba(255, 255, 255, 0)",
       scrollBehavior: "smooth",
@@ -110,10 +112,20 @@ const Shop = () => {
   const handleItemClick = (index) => {
     if (selectedCategory === "tops") {
       setSelectedTop(index);
+      chrome.storage.local.set({ selectedTop: index });
     } else if (selectedCategory === "bottoms") {
       setSelectedBottom(index);
+      chrome.storage.local.set({ selectedBottom: index });
     }
   };
+
+  // Load saved selections on mount
+  useEffect(() => {
+    chrome.storage.local.get(["selectedTop", "selectedBottom"], (result) => {
+      if (result.selectedTop !== undefined) setSelectedTop(result.selectedTop);
+      if (result.selectedBottom !== undefined) setSelectedBottom(result.selectedBottom);
+    });
+  }, []);
 
   return (
     <div style={styles.page}>

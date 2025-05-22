@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import foxCommentImg from "../../media/Fox_comment.png"; // adjust if needed
+import foxImg from "../../media/Fox_comment.png"; // adjust if needed
 
 const Popup = () => {
   const navigate = useNavigate();
@@ -76,7 +76,7 @@ const Popup = () => {
         <p style={styles.paragraph}>Let's think about this purchase first!</p>
 
         <div style={styles.imageContainer}>
-          <img src={foxCommentImg} alt="Fox commenting" style={styles.image} />
+          <img src={foxImg} alt="Fox" style={styles.image} />
         </div>
 
         <div style={styles.buttonGroup}>
