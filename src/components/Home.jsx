@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getUserData } from "../firestoreService";
 import { auth } from "../firebase";
+import { updateStreakAndCoins } from "../streakManager";
 import Nav from "./Nav";
 import coinIcon from "../../media/Coin_single.png";
 import streakIcon from "../../media/Streak.png";
@@ -46,6 +47,10 @@ const Home = () => {
 
   // getting user streak
   useEffect(() => {
+
+    // getting streak/coinz from streakManager.js
+    updateStreakAndCoins();
+    
     chrome.runtime.sendMessage({ type: "GET_STREAK_DATA" }, (response) => {
       if (response && response.streak !== undefined) {
         setStreak(response.streak);
