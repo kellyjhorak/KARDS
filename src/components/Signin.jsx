@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -17,7 +18,18 @@ const Signin = () => {
     e.preventDefault();
     try {
       if (isSignup) {
-        await createUserWithEmailAndPassword(auth, email, password);
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        // Create firestore user document (if brand new)
+        await setDoc(doc(db, "users", user.uid), {
+          coins: 0,
+          streak: 0,
+          username: email.split("@")[0],
+          hats: [],
+          tops: [],
+          bottoms: [],
+          denWpp: "",
+        });
         alert("Signed up!");
         navigate("/home");
       } else {

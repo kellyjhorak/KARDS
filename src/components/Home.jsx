@@ -47,28 +47,22 @@ const Home = () => {
 
   // getting user streak
   useEffect(() => {
-
-    // getting streak/coinz from streakManager.js
-    updateStreakAndCoins();
-    
-    chrome.runtime.sendMessage({ type: "GET_STREAK_DATA" }, (response) => {
-      if (response && response.streak !== undefined) {
-        setStreak(response.streak);
-      }
-    });
-
-    // getting user coinz
     const user = auth.currentUser;
-      if (user) {
-        getUserData(user.uid).then((data) => {
-          if (data) setCoins(data.coins || 0);
-        });
-      }
 
+    // getting coinz and streak
+    if (user) {
+      updateStreakAndCoins().then(async () => {
+        const data = await getUserData(user.uid);
+        if (data) {
+          setCoins(data.coins || 0);
+          setStreak(data.streak || 0);
+        }
+      });
+    }
     chrome.storage.local.get(["selectedTop", "selectedBottom"], (result) => {
       if (result.selectedTop !== undefined) setSelectedTop(result.selectedTop);
       if (result.selectedBottom !== undefined) setSelectedBottom(result.selectedBottom);
-    });
+      });
   }, []);
 
   const styles = {
@@ -229,7 +223,7 @@ const Home = () => {
         </div>
         <div style={styles.countBlock}>
           <img src={streakIcon} alt="Streak" style={styles.icon} />
-          <span>{streak} days</span>
+          <span>{streak} day streak</span>
         </div>
       </div>
 
@@ -269,7 +263,7 @@ const Home = () => {
       </div>
 
       <div style={styles.rewardMsg}>
-        Get to a 10-day streak to earn special clothes in the shop!
+        Get to a 10-day streak to earn a special bonus!
       </div>
     </div>
   );

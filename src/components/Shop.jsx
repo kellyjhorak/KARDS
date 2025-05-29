@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
-
+import { auth, db } from "../firebase";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import foxImg from "../../media/June.png";
 import background from "../../media/Shop_background.png";
 
@@ -99,9 +100,26 @@ const Shop = () => {
     },
   };
 
+  const itemData = {
+    tops: [
+      { src: Black_peace_shirt, price: 10 },
+      { src: Camo_shirt, price: 12 },
+      { src: Dad_shirt, price: 8 },
+      { src: Luv_den_shirt, price: 15 },
+      { src: NYC_shirt, price: 10 },
+    ],
+    bottoms: [
+      { src: Cargos_shorts, price: 10 },
+      { src: Gym_shorts, price: 10 },
+      { src: Jorts_shorts, price: 12 },
+      { src: Orange_skirt, price: 15 },
+      { src: Purple_skirt, price: 8 },
+    ],
+  };
+
   const categories = {
-    tops: [Black_peace_shirt, Camo_shirt, Dad_shirt, Luv_den_shirt, NYC_shirt],
-    bottoms: [Cargos_shorts, Gym_shorts, Jorts_shorts, Orange_skirt, Purple_skirt],
+    tops: itemData.tops.map(item => item.src),
+    bottoms: itemData.bottoms.map(item => item.src),
   };
 
   const equippedItemStyle = {
@@ -119,7 +137,33 @@ const Shop = () => {
     }
   };
 
-  // Load saved selections on mount
+  const handleBuy = async () => {
+    const user = auth.currentUser;
+    if (!user) return alert("Not signed in");
+    const userRef = doc(db, "users", user.uid);
+    const snap = await getDoc(userRef);
+    const data = snap.data();
+    const type = selectedCategory;
+    const index = type === "tops" ? selectedTop : selectedBottom;
+    if (index === null) return alert("Select an item first");
+    const item = itemData[type][index];
+    const ownedItems = data[type] || [];
+    const userCoins = data.coins || 0;
+    if (ownedItems.includes(item.src)) {
+      alert("You already own this item!");
+      return;
+    }
+    if (userCoins < item.price) {
+      alert("Not enough coins!");
+      return;
+    }
+    await updateDoc(userRef, {
+      coins: userCoins - item.price,
+      [type]: [...ownedItems, item.src],
+    });
+    alert(`Purchased for ${item.price} coins!`);
+  }
+
   useEffect(() => {
     chrome.storage.local.get(["selectedTop", "selectedBottom"], (result) => {
       if (result.selectedTop !== undefined) setSelectedTop(result.selectedTop);
@@ -177,6 +221,23 @@ const Shop = () => {
           style={{ ...styles.equippedItem, ...equippedItemStyle.bottoms }}
         />
       )}
+      <button onClick={handleBuy}
+        style={{
+        position: "absolute",
+        bottom: "20px",
+        right: "20px",
+        padding: "10px 20px",
+        backgroundColor: "#B0413E",
+        color: "#FFFFC7",
+        fontSize: "16px",
+        fontWeight: "bold",
+        borderRadius: "6px",
+        border: "none",
+        cursor: "pointer",
+        }}
+        >
+          Buy
+      </button>
     </div>
   );
 };

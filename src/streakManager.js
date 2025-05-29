@@ -16,15 +16,18 @@ export async function updateStreakAndCoins() {
     if (lastChecked !== today) {
       const userRef = doc(db, "users", uid);
       const snap = await getDoc(userRef);
-
       if (!snap.exists()) return;
 
       const currentData = snap.data();
       const currentStreak = currentData.streak || 0;
       const currentCoins = currentData.coins || 0;
 
-      const newStreak = brokeStreak ? 0 : currentStreak + 1;
-      const coinsEarned = brokeStreak ? 0 : 5;
+      let newStreak = brokeStreak ? 0 : currentStreak + 1;
+      let coinsEarned = 0;
+
+      if (!brokeStreak) {
+        coinsEarned = newStreak === 10 ? 20 : 10;
+      }
 
       await updateDoc(userRef, {
         streak: newStreak,
