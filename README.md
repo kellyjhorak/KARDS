@@ -1,5 +1,6 @@
 # About The Project
 **Den** is a interactive chrome extension built to help people aged 16-28 achieve a state of regulated emotions before making online purchases so they can reduce their number of impuslive purchases.
+Navigate to the **Getting Started** section below to set up Den on your machine.
 
 Our team consists of 5 University of Washington Informatics Undergrads (as part of our Capstone project!)
 
@@ -33,6 +34,7 @@ git clone https://github.com/kellyjhorak/KARDS.git
 Next, make sure that you have Node.js installed on your device, then install NPM packages
 ```
 npm install npm@latest -g
+npm install firebase
 ```
 ### Installation steps
 1. After npm installs, run the build in your IDE terminal (under the main repository "KARDS")
@@ -40,8 +42,8 @@ npm install npm@latest -g
 npm run build
 ```
 2. Then, navigate to your chrome extensions at "chrome://extensions"
-3. Next, ensure 'developer mode' is turned on, then select "Load unpacked"
-4. Finally, select the 'dist' folder in KARDS/dist. You should see the Den extension load without errors in "All extensions"
+3. Next, ensure 'developer mode' is turned on (in the top right), then select "Load unpacked"
+4. Finally, select the 'dist' folder located in KARDS/dist. You should see the Den extension load without errors in "All extensions"
 
 # Timeline
 Den was developed as part of our INFO 491 Project Capstone, spanning the Winter and Spring quarters of 2025 (January to June 2025).
@@ -51,7 +53,7 @@ Den was developed as part of our INFO 491 Project Capstone, spanning the Winter 
 **Spring Quarter** consisted of Final Project development, Usability Testing, serveral re-iterations, and other work.
 
 ### Next work
-The next evolution of our product lies in the mobile space. Going into the project, we understood that to best connect with our user base (people aged 16-28), a mobile app would likely be the most effective product. However, we ended up creating the chrome extension instead as it aligned more closely with our technical skills and simply put, we wanted to create an extension. 
+Although we are ultimately deciding to close down this project, the next evolution of our product would lie in the mobile space. Going into the project, we understood that to best connect with our user base (people aged 16-28), a mobile app would likely be the most effective product. However, we ended up creating the chrome extension instead as it aligned more closely with our technical skills and simply put, we wanted to create an extension. 
 
 # Contact Us
 Feel free to reach out to our team on email or by contacting the UW Informatics program!
