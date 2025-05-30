@@ -24,6 +24,13 @@ const Shop = () => {
   const [selectedTop, setSelectedTop] = useState(null);
   const [selectedBottom, setSelectedBottom] = useState(null);
 
+  const customScrollbarStyle = {
+    scrollbarWidth: "thin",
+    scrollbarColor: "#B0413E #FFFFC7",
+    msOverflowStyle: "none",
+    direction: "rtl",
+  };
+
   const styles = {
     page: {
       position: "relative",
@@ -54,32 +61,33 @@ const Shop = () => {
       zIndex: 2,
     },
     tab: {
-      padding: "8px 14px",     
+      padding: "8px 14px",
       backgroundColor: "#548687",
       color: "#FFFFC7",
-      borderRadius: "6px",    
+      borderRadius: "6px",
       cursor: "pointer",
-      fontSize: "16px",       
+      fontSize: "16px",
       fontWeight: "bold",
       border: "none",
-      minWidth: "80px",         
+      minWidth: "80px",
       textAlign: "center",
     },
     itemBanner: {
       position: "absolute",
       top: "100px",
-      left: "35px",
-      width: "300px",           
+      left: "22px",
+      width: "300px",
       height: "300px",
       overflowY: "auto",
       display: "flex",
       flexDirection: "row",
-      flexWrap: "wrap",    
+      flexWrap: "wrap",
       justifyContent: "center",
       gap: "4px",
       padding: "2px",
       backgroundColor: "rgba(255, 255, 255, 0)",
       scrollBehavior: "smooth",
+      direction: "ltr",
     },
     itemImg: {
       height: "150px",
@@ -89,9 +97,9 @@ const Shop = () => {
     },
     fox: {
       position: "absolute",
-      width: "300px", 
-      top: "210px",  
-      left: "325px", 
+      width: "300px",
+      top: "210px",
+      left: "325px",
     },
     equippedItem: {
       position: "absolute",
@@ -118,8 +126,8 @@ const Shop = () => {
   };
 
   const categories = {
-    tops: itemData.tops.map(item => item.src),
-    bottoms: itemData.bottoms.map(item => item.src),
+    tops: itemData.tops.map((item) => item.src),
+    bottoms: itemData.bottoms.map((item) => item.src),
   };
 
   const equippedItemStyle = {
@@ -130,45 +138,82 @@ const Shop = () => {
   const handleItemClick = (index) => {
     if (selectedCategory === "tops") {
       setSelectedTop(index);
-      chrome.storage.local.set({ selectedTop: index });
     } else if (selectedCategory === "bottoms") {
       setSelectedBottom(index);
-      chrome.storage.local.set({ selectedBottom: index });
     }
   };
 
   const handleBuy = async () => {
     const user = auth.currentUser;
     if (!user) return alert("Not signed in");
+
     const userRef = doc(db, "users", user.uid);
     const snap = await getDoc(userRef);
     const data = snap.data();
+
     const type = selectedCategory;
     const index = type === "tops" ? selectedTop : selectedBottom;
     if (index === null) return alert("Select an item first");
+
     const item = itemData[type][index];
     const ownedItems = data[type] || [];
     const userCoins = data.coins || 0;
+
     if (ownedItems.includes(item.src)) {
       alert("You already own this item!");
       return;
     }
+
     if (userCoins < item.price) {
       alert("Not enough coins!");
       return;
     }
+
     await updateDoc(userRef, {
       coins: userCoins - item.price,
       [type]: [...ownedItems, item.src],
+      ...(type === "tops" ? { equippedTop: item.src } : { equippedBottom: item.src }),
     });
-    alert(`Purchased for ${item.price} coins!`);
-  }
+
+    if (type === "tops") {
+      setSelectedTop(index);
+      chrome.storage.local.set({ selectedTop: index });
+    } else {
+      setSelectedBottom(index);
+      chrome.storage.local.set({ selectedBottom: index });
+    }
+
+    alert(`Purchased and equipped for ${item.price} coins!`);
+  };
 
   useEffect(() => {
-    chrome.storage.local.get(["selectedTop", "selectedBottom"], (result) => {
-      if (result.selectedTop !== undefined) setSelectedTop(result.selectedTop);
-      if (result.selectedBottom !== undefined) setSelectedBottom(result.selectedBottom);
-    });
+    const loadEquippedItems = async () => {
+      const user = auth.currentUser;
+      if (!user) return;
+
+      const userRef = doc(db, "users", user.uid);
+      const snap = await getDoc(userRef);
+      const data = snap.data();
+
+      const equippedTopIndex = itemData.tops.findIndex(
+        (item) => item.src === data.equippedTop
+      );
+      const equippedBottomIndex = itemData.bottoms.findIndex(
+        (item) => item.src === data.equippedBottom
+      );
+
+      if (equippedTopIndex !== -1) {
+        setSelectedTop(equippedTopIndex);
+        chrome.storage.local.set({ selectedTop: equippedTopIndex });
+      }
+
+      if (equippedBottomIndex !== -1) {
+        setSelectedBottom(equippedBottomIndex);
+        chrome.storage.local.set({ selectedBottom: equippedBottomIndex });
+      }
+    };
+
+    loadEquippedItems();
   }, []);
 
   return (
@@ -181,7 +226,8 @@ const Shop = () => {
             key={cat}
             style={{
               ...styles.tab,
-              backgroundColor: selectedCategory === cat ? "#B0413E" : "#548687",
+              backgroundColor:
+                selectedCategory === cat ? "#B0413E" : "#548687",
             }}
             onClick={() => setSelectedCategory(cat)}
           >
@@ -191,16 +237,19 @@ const Shop = () => {
       </div>
 
       <div style={{ ...styles.itemBanner, ...customScrollbarStyle }}>
-        {categories[selectedCategory].map((item, index) => (
-          <img
-            key={index}
-            src={item}
+        {itemData[selectedCategory].map((item, index) => (
+          <div key={index} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <img src={item.src} 
             alt={`Item ${index}`}
             style={styles.itemImg}
             onClick={() => handleItemClick(index)}
             onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
             onMouseOut={(e) => (e.target.style.transform = "scale(1.0)")}
-          />
+            />
+          <span style={{ fontSize: "18px", fontWeight: "bold"}}>
+            coins {item.price}
+          </span>
+        </div>
         ))}
       </div>
 
@@ -221,22 +270,24 @@ const Shop = () => {
           style={{ ...styles.equippedItem, ...equippedItemStyle.bottoms }}
         />
       )}
-      <button onClick={handleBuy}
+
+      <button
+        onClick={handleBuy}
         style={{
-        position: "absolute",
-        bottom: "20px",
-        right: "20px",
-        padding: "10px 20px",
-        backgroundColor: "#B0413E",
-        color: "#FFFFC7",
-        fontSize: "16px",
-        fontWeight: "bold",
-        borderRadius: "6px",
-        border: "none",
-        cursor: "pointer",
+          position: "absolute",
+          bottom: "20px",
+          right: "20px",
+          padding: "10px 20px",
+          backgroundColor: "#B0413E",
+          color: "#FFFFC7",
+          fontSize: "16px",
+          fontWeight: "bold",
+          borderRadius: "6px",
+          border: "none",
+          cursor: "pointer",
         }}
-        >
-          Buy
+      >
+        Buy
       </button>
     </div>
   );
