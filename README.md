@@ -1,7 +1,7 @@
 # About The Project
 **Den** is a interactive chrome extension built to help people aged 16-28 achieve a state of regulated emotions before making online purchases so they can reduce their number of impuslive purchases.
 
-Navigate to the **Getting Started** section below to set up Den on your machine.
+__Navigate to the **Getting Started** section below to set up Den on your machine.__
 
 Our team consists of 5 University of Washington Informatics Undergrads (as part of our Capstone project!)
 
