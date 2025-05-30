@@ -3,8 +3,10 @@ import Nav from "./Nav";
 import foxImg from "../../media/June.png";
 
 // backgrounds
-import DenBackground from "../../media/Den_background.png";
-import FireBackground from "../../media/Fire.png";
+import DenBackground from "../../media/fire-1.png";
+import Fire2 from "../../media/fire-2.png";
+import Fire3 from "../../media/fire-3.png";
+import Fire4 from "../../media/fire-4.png";
 
 // tops
 import Black_peace_shirt from "../../media/Black_peace_shirt.png";
@@ -25,6 +27,9 @@ const Den = () => {
   const [selectedBottom, setSelectedBottom] = useState(null);
   const [fireOn, setFireOn] = useState(false);
   const [showGlow, setShowGlow] = useState(true);
+  const [fireFrameIndex, setFireFrameIndex] = useState(0);
+
+  const fireFrames = [Fire2, Fire3, Fire4];
 
   const tops = [
     Black_peace_shirt,
@@ -52,6 +57,24 @@ const Den = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    let intervalId;
+
+    if (fireOn) {
+      intervalId = setInterval(() => {
+        setFireFrameIndex((prevIndex) => (prevIndex + 1) % fireFrames.length);
+      }, 300); // frame speed in ms
+    } else {
+      setFireFrameIndex(0); // reset to base frame if fire is off
+    }
+
+    return () => clearInterval(intervalId);
+  }, [fireOn]);
+
+  const backgroundImage = fireOn
+    ? `url(${fireFrames[fireFrameIndex]})`
+    : `url(${DenBackground})`;
+
   const styles = {
     body: {
       position: "relative",
@@ -59,7 +82,7 @@ const Den = () => {
       height: "464px",
       margin: 0,
       padding: 0,
-      backgroundImage: `url(${fireOn ? FireBackground : DenBackground})`,
+      backgroundImage,
       backgroundSize: "cover",
       backgroundPosition: "center",
       backgroundRepeat: "no-repeat",
